@@ -37,10 +37,11 @@ jobs:
           node-version: 14.15.5
 
       - name: Install dependencies
+        # sed -r 's/^..YN.{6}([│┌└] )?//'
         run: |
           echo "Hello!"
           echo "::group::Install dependencies"
           echo "Installing deps"
-          yarn 2>&1 | sed -r 's/^..YN.{6}([│┌└] )?//'
+          yarn 2>&1 | hexdump -C
           echo "::endgroup::"
           echo "Group closed"
