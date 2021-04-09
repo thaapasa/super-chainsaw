@@ -1,0 +1,11 @@
+{
+  "name": "super-chainsaw",
+  "version": "1.0.0",
+  "repository": "git@github.com:thaapasa/super-chainsaw.git",
+  "author": "Tuukka Haapasalo <tuukka.haapasalo@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "typescript": "^4.2.4"
+  }
+}
