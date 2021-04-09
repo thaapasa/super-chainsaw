@@ -37,4 +37,10 @@ jobs:
           node-version: 14.15.5
 
       - name: Install dependencies
-        run: yarn
+        run: |
+          echo "Hello!"
+          echo "::group::Install dependencies"
+          echo "Installing deps"
+          yarn
+          echo "::endgroup::"
+          echo "Group closed"
