@@ -42,6 +42,6 @@ jobs:
           echo "Hello!"
           echo "::group::Install dependencies"
           echo "Installing deps"
-          yarn 2>&1 | hexdump -C
+          yarn 2>&1 | sed -r 's/::group:://g'
           echo "::endgroup::"
           echo "Group closed"
