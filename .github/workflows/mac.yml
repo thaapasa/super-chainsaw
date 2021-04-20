@@ -10,10 +10,19 @@ jobs:
   app-test:
     name: Run Mac test
     runs-on: macos-latest
+    env:
+      ADMIN_DATABASE_URL: postgresql://localhost/postgres
+      DATABASE_URL: postgresql://localhost/chainsaw
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Start postgres server
+        run: pg_ctl -D /usr/local/var/postgres start
+
       - name: Create database
-        run: psql -c "CREATE DATABASE chainsaw"
+        run: psql $ADMIN_DATABASE_URL -c "CREATE DATABASE chainsaw"
+
+      - name: Run select
+        run: psql $DATABASE_URL -c "SELECT 1"
