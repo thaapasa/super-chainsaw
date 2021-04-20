@@ -28,10 +28,5 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Use Node.js 14.15.5
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.15.5
-
       - name: Start docker container
         run: docker run node:14.15.5-buster-slim ls /
