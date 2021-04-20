@@ -1,0 +1,37 @@
+name: Mac runner test
+
+on:
+  push:
+    paths:
+    - '.github/workflows/mac.yml'
+  workflow_dispatch:
+
+jobs:
+  app-test:
+    name: Run Mac test
+    runs-on: macos-latest
+
+    services:
+      postgres:
+        image: postgres:11.10
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Use Node.js 14.15.5
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.15.5
+
+      - name: Start docker container
+        run: docker run node:14.15.5-buster-slim ls /
