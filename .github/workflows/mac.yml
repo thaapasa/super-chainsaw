@@ -15,5 +15,5 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Start docker container
-        run: docker run node:14.15.5-buster-slim ls /
+      - name: Create database
+        run: psql -c "CREATE DATABASE chainsaw"
