@@ -1,0 +1,33 @@
+name: 'Setup env'
+description: 'Sets up environment'
+runs:
+  using: "composite"
+  steps:
+    - name: Extract branch name
+      shell: bash
+      run: |
+        echo "GIT_BRANCH_POSTFIX=$(echo ${GITHUB_REF##*/})" >> $GITHUB_ENV
+        GIT_BRANCH=$(echo ${GITHUB_REF#refs/heads/})
+        echo "GIT_BRANCH=$GIT_BRANCH" >> $GITHUB_ENV
+        echo "GIT_BRANCH_HYPHENS=$(echo ${GIT_BRANCH/\//-})" >> $GITHUB_ENV
+        echo "/home/runner/bin" >> $GITHUB_PATH
+
+    - name: Create bin
+      shell: bash
+      run: |
+        [ ! -d $HOME/bin ] && mkdir $HOME/bin
+        echo "$HOME/bin" >> $GITHUB_PATH
+
+    - name: Build information
+      shell: bash
+      run: |
+        echo "Test runner OS: ${{ runner.os }}"
+        echo "Branch or tag: ${{ github.ref }} / $GITHUB_REF"
+        echo "Branch $GIT_BRANCH (last part $GIT_BRANCH_POSTFIX)"
+        echo "Repository: $GITHUB_REPOSITORY"
+        echo "Action id: $GITHUB_ACTION"
+        echo "Job id: ${{ github.job }}"
+        echo "Run id: $GITHUB_RUN_ID"
+        echo "Run number: $GITHUB_RUN_NUMBER"
+        echo "Triggering event: ${{ github.event }} / $GITHUB_EVENT_NAME"
+        echo "Github revision: ${{ github.sha }} / $GITHUB_SHA"

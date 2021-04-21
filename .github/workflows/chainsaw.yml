@@ -17,23 +17,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Extract branch name
-        run: |
-          echo "GIT_BRANCH_POSTFIX=$(echo ${GITHUB_REF##*/})" >> $GITHUB_ENV
-          echo "GIT_BRANCH=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
+      - uses: ./.github/actions/setup-env
 
-      - name: Build information
+      - name: Check for changes
         run: |
-          echo "Test runner OS: ${{ runner.os }}"
-          echo "Branch or tag: ${{ github.ref }} / $GITHUB_REF"
-          echo "Branch $GIT_BRANCH (last part $GIT_BRANCH_POSTFIX)"
-          echo "Repository: $GITHUB_REPOSITORY"
-          echo "Action id: $GITHUB_ACTION"
-          echo "Job id: ${{ github.job }}"
-          echo "Run id: $GITHUB_RUN_ID"
-          echo "Run number: $GITHUB_RUN_NUMBER"
-          echo "Triggering event: ${{ github.event }} / $GITHUB_EVENT_NAME"
-          echo "Github revision: ${{ github.sha }} / $GITHUB_SHA"
+          echo "GIT_BRANCH_HYPHENS: $GIT_BRANCH_HYPHENS"
+          echo "PATH: $PATH"
 
       - name: Use Node.js 14.15.5
         uses: actions/setup-node@v1
