@@ -26,3 +26,6 @@ jobs:
 
       - name: Run select
         run: psql $DATABASE_URL -c "SELECT 1"
+
+      - name: Setup upterm session (remote debug)
+        uses: lhotari/action-upterm@v1
