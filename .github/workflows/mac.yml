@@ -18,6 +18,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Setup path and env
+        run: |
+          echo "JAVA_HOME=$JAVA_HOME_8_X64" >> $GITHUB_ENV
+          echo "$ANDROID_HOME/platform-tools" >> $GITHUB_PATH
+          echo "$ANDROID_HOME/cmdline-tools/latest/bin" >> $GITHUB_PATH
+
+      # Only for Mac
+      - name: Check for HAXM
+        run: |
+          echo ::group::Check for HAXM
+          echo "HAXM: looking for com.intel.kext.intelhaxm"
+          kextstat | grep intel
+          echo ::endgroup::
+
       - name: Start postgres server
         run: pg_ctl -D /usr/local/var/postgres start
 
@@ -27,5 +41,8 @@ jobs:
       - name: Run select
         run: psql $DATABASE_URL -c "SELECT 1"
 
-      - name: Setup upterm session (remote debug)
-        uses: lhotari/action-upterm@v1
+      - name: Show emulators
+        run: $ANDROID_HOME/emulator/emulator -list-avds
+
+      #- name: Setup upterm session (remote debug)
+      #  uses: lhotari/action-upterm@v1
