@@ -41,7 +41,11 @@ jobs:
       - name: Run select
         run: psql $DATABASE_URL -c "SELECT 1"
 
-      - name: Show emulators
+      - name: Show installed Android SDKs
+        run: |
+          sdkmanager --list
+
+      - name: Show created emulators
         run: |
           echo "Emulators:"
           $ANDROID_HOME/emulator/emulator -list-avds
