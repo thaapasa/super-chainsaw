@@ -42,7 +42,10 @@ jobs:
         run: psql $DATABASE_URL -c "SELECT 1"
 
       - name: Show emulators
-        run: $ANDROID_HOME/emulator/emulator -list-avds
+        run: |
+          echo "Emulators:"
+          $ANDROID_HOME/emulator/emulator -list-avds
+          echo "End of emulators"
 
       #- name: Setup upterm session (remote debug)
       #  uses: lhotari/action-upterm@v1
